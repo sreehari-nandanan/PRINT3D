@@ -99,3 +99,42 @@
 .featured-card:hover .featured-name {
     color: var(--accent-primary);
 }
+
+@media (max-width: 768px) {
+    .featured-section {
+        padding: 3rem 0;
+    }
+
+    .featured-card {
+        width: 250px;
+        height: 350px;
+    }
+
+    .featured-name {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .featured-section {
+        padding: 2rem 0;
+    }
+
+    .featured-section::before,
+    .featured-section::after {
+        width: 80px;
+    }
+
+    .featured-card {
+        width: 220px;
+        height: 320px;
+    }
+
+    .featured-name {
+        font-size: 1.1rem;
+    }
+
+    .featured-overlay {
+        padding: 1.5rem 1rem;
+    }
+}

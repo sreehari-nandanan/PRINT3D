@@ -294,3 +294,85 @@
     width: 100%;
     justify-content: center;
 }
+
+@media (max-width: 768px) {
+    .cart-drawer {
+        max-width: 100%;
+    }
+
+    .cart-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .cart-items {
+        padding: 1rem;
+    }
+
+    .cart-footer {
+        padding: 1rem;
+    }
+
+    .coupon-section {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .cart-total {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-header {
+        padding: 1.25rem 1rem;
+    }
+
+    .cart-header h2 {
+        font-size: 1.15rem;
+    }
+
+    .cart-items {
+        padding: 0.85rem;
+        gap: 1.25rem;
+    }
+
+    .cart-item {
+        padding-bottom: 1.25rem;
+    }
+
+    .item-image-container {
+        width: 70px;
+        height: 70px;
+    }
+
+    .item-details h3 {
+        font-size: 0.95rem;
+    }
+
+    .item-price {
+        font-size: 0.9rem;
+    }
+
+    .coupon-input {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.65rem;
+    }
+
+    .apply-coupon-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .cart-footer {
+        padding: 0.85rem;
+    }
+
+    .cart-total {
+        font-size: 1rem;
+    }
+
+    .checkout-btn {
+        font-size: 0.95rem;
+        padding: 0.85rem;
+    }
+}

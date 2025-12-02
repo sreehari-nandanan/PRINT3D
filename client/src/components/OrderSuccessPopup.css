@@ -184,6 +184,7 @@
 @media (max-width: 480px) {
     .success-popup {
         padding: 1.5rem 1rem;
+        border-radius: 16px;
     }
 
     .success-popup h2 {
@@ -192,13 +193,28 @@
 
     .success-message {
         font-size: 0.95rem;
+        margin-bottom: 1.25rem;
     }
 
     .order-number {
         padding: 0.75rem 1rem;
+        margin-top: 1.25rem;
+    }
+
+    .order-label {
+        font-size: 0.8rem;
     }
 
     .order-value {
         font-size: 1rem;
+    }
+
+    .success-icon svg {
+        width: 50px;
+        height: 50px;
+    }
+
+    .success-animation {
+        font-size: 2.5rem;
     }
 }

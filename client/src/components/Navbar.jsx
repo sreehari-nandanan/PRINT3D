@@ -93,33 +93,31 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu */}
-            {isMobileMenuOpen && (
-                <div className="mobile-menu">
-                    <Link to="/" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-                    <Link to="/shop" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
-                    <Link to="/about" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-                    {user && (
-                        <>
-                            <Link to="/my-orders" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>My Orders</Link>
-                            <Link to="/profile" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link>
-                        </>
-                    )}
-                    {!user && (
-                        <button
-                            className="mobile-link"
-                            onClick={() => {
-                                setIsMobileMenuOpen(false);
-                                setIsLoginModalOpen(true);
-                            }}
-                        >
-                            Sign In
-                        </button>
-                    )}
-                    {user && (
-                        <button className="mobile-link" onClick={handleLogout}>Logout</button>
-                    )}
-                </div>
-            )}
+            <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+                <Link to="/" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+                <Link to="/shop" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
+                <Link to="/about" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+                {user && (
+                    <>
+                        <Link to="/my-orders" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>My Orders</Link>
+                        <Link to="/profile" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link>
+                    </>
+                )}
+                {!user && (
+                    <button
+                        className="mobile-link"
+                        onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            setIsLoginModalOpen(true);
+                        }}
+                    >
+                        Sign In
+                    </button>
+                )}
+                {user && (
+                    <button className="mobile-link" onClick={handleLogout}>Logout</button>
+                )}
+            </div>
 
             <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
         </nav>

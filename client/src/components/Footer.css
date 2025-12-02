@@ -73,12 +73,42 @@
 @media (max-width: 968px) {
     .footer-container {
         grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
     }
 }
 
 @media (max-width: 576px) {
+    .footer {
+        padding: 3rem 0 0;
+    }
+
     .footer-container {
         grid-template-columns: 1fr;
         gap: 2rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .footer-desc {
+        max-width: 100%;
+        font-size: 0.95rem;
+    }
+
+    .footer-title {
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+        font-size: 0.9rem;
+    }
+
+    .social-link {
+        width: 36px;
+        height: 36px;
+    }
+
+    .footer-bottom {
+        padding: 1.25rem 0;
+        font-size: 0.85rem;
     }
 }

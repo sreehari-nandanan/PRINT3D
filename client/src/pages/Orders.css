@@ -491,16 +491,99 @@
 }
 
 @media (max-width: 768px) {
+    .orders-page {
+        padding: 1.5rem 0;
+    }
+
     .orders-header {
         flex-direction: column;
         gap: 1rem;
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+    }
+
+    .header-actions {
+        width: 100%;
+    }
+
+    .header-actions button {
+        flex: 1;
+        justify-content: center;
     }
 
     .detail-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .modal-overlay {
-        padding: 1rem;
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .order-modal {
+        border-radius: 20px 20px 0 0;
+        max-height: 85vh;
+    }
+
+    .modal-header {
+        padding: 1.25rem;
+    }
+
+    .modal-body {
+        padding: 1.25rem;
+    }
+
+    .modal-item {
+        padding: 0.75rem;
+    }
+
+    .modal-item img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .login-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .orders-stats {
+        font-size: 0.85rem;
+    }
+
+    .orders-table th,
+    .orders-table td {
+        padding: 0.75rem;
+    }
+
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .detail-section h3 {
+        font-size: 1rem;
+    }
+
+    .modal-item-total {
+        font-size: 1rem;
     }
 }
