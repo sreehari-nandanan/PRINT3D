@@ -1,0 +1,155 @@
+# My Orders Page - Troubleshooting Guide
+
+## Issue: No Orders Showing
+
+If the My Orders page shows "No Orders Found" even though you've placed orders, follow these steps:
+
+### Step 1: Enable Firestore Database
+
+1. Go to Firebase Console: https://console.firebase.google.com/
+2. Select your project: `print3d-1e16c`
+3. Navigate to: Build → Firestore Database
+4. If not enabled:
+   - Click "Create database"
+   - Choose "Start in production mode"
+   - Select location (e.g., asia-south1)
+   - Click "Enable"
+
+### Step 2: Create Firestore Index
+
+The My Orders page uses a compound query. You need to create an index:
+
+1. In Firebase Console, go to: Firestore Database → Indexes
+2. Click "Create Index"
+3. Configure:
+   - Collection ID: `orders`
+   - Fields to index:
+     - Field: `customer.userId`, Order: Ascending
+     - Field: `createdAt`, Order: Descending
+   - Query scope: Collection
+4. Click "Create"
+5. Wait for index to build (usually 1-2 minutes)
+
+### Step 3: Check Browser Console
+
+1. Open your website
+2. Press F12 to open Developer Tools
+3. Go to Console tab
+4. Look for messages like:
+   - "Fetching orders for user: ..."
+   - "Orders found: X"
+   - Any error messages
+
+### Step 4: Verify Order Data Structure
+
+Orders should be saved with this structure:
+
+```
+orders/ORD-1234567890
+  ├── customer
+  │   ├── userId: "abc123..."     ← MUST EXIST
+  │   ├── name: "John Doe"
+  │   ├── email: "john@example.com"
+  │   ├── mobile: "9876543210"
+  │   └── address: "..."
+  ├── items: [...]
+  ├── pricing: {...}
+  ├── status: "pending"
+  ├── createdAt: "2024-12-01T..."
+  └── orderNumber: "ORD-..."
+```
+
+**CRITICAL**: The `customer.userId` field MUST match the user's UID.
+
+### Step 5: Manually Check in Firebase Console
+
+1. Go to: Firestore Database → Data
+2. Click on "orders" collection
+3. Click on any order document
+4. Verify:
+   - `customer.userId` exists
+   - `customer.userId` matches your Google user ID
+   - `createdAt` field exists
+
+### Step 6: Place a Test Order
+
+1. Make sure you're logged in
+2. Add product to cart
+3. Complete profile (mobile & address)
+4. Click "Place Order"
+5. Check Firebase Console → orders collection
+6. Verify new order was created
+
+### Common Issues & Solutions
+
+#### Issue: "Index not found" error
+
+**Solution**: Create the Firestore index (see Step 2)
+
+#### Issue: Orders exist but don't show
+
+**Cause**: userId doesn't match  
+**Solution**: 
+- Check if you're logged in with the same Google account
+- Verify userId in order matches your account
+
+#### Issue: Firebase errors in console
+
+**Cause**: Firestore not enabled  
+**Solution**: Enable Firestore (see Step 1)
+
+#### Issue: No orders in Firebase at all
+
+**Cause**: Orders aren't being saved  
+**Solution**: 
+- Check browser console for errors when placing order
+- Verify Firebase config in `client/src/firebase.js`
+- Ensure internet connection is working
+
+### Testing the Fix
+
+1. Clear browser cache
+2. Log out and log back in
+3. Go to: http://localhost:5173/my-orders
+4. Check browser console for:
+   ```
+   Fetching orders for user: YOUR_USER_ID
+   Orders found: X
+   ```
+
+### Alternative: Simple Query Fallback
+
+If the index creation fails, the code automatically falls back to a simple query (without sorting). Orders will still appear, just not sorted by date.
+
+### Get Your User ID
+
+To find your current user ID:
+
+1. Log in to your account
+2. Open browser console (F12)
+3. Type: `localStorage.getItem('user')`
+4. Or check any order in Firebase Console → customer.userId
+
+### Manual Fix
+
+If orders exist but userId is wrong:
+
+1. Go to Firebase Console → Firestore
+2. Click on each order
+3. Edit `customer.userId` field
+4. Replace with correct user ID
+5. Save
+
+---
+
+## Quick Checklist
+
+- [ ] Firestore database is enabled
+- [ ] Firestore index is created and active
+- [ ] You're logged in with Google
+- [ ] Your profile is complete
+- [ ] You've placed at least one order
+- [ ] Browser console shows no errors
+- [ ] customer.userId matches your account
+
+If all checked and still not working, check browser console for specific error messages.

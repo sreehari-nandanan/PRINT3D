@@ -1,0 +1,197 @@
+# Product Management Guide
+
+This guide explains how to add, update, and manage products in your 3D printing e-commerce site.
+
+## File Structure
+
+```
+print3d/
+├── server/
+│   └── data/
+│       └── products.js          # Product data file
+└── client/
+    └── public/
+        └── images/              # Product images folder
+            ├── geometric-planter.png
+            ├── voronoi-lamp.png
+            └── ...
+```
+
+## How to Add a New Product
+
+### Step 1: Add Product Image
+
+1. Navigate to: `client/public/images/`
+2. Add your product image (PNG, JPG, or SVG format)
+3. Use a descriptive filename with lowercase and hyphens
+   - Example: `wireless-charger.png`
+
+### Step 2: Update Product Data
+
+1. Open: `server/data/products.js`
+2. Add a new product object to the array following this structure:
+
+```javascript
+{
+  id: 9,                           // Use next available number
+  name: 'Wireless Charger',        // Product display name
+  category: 'Accessories',         // Options: 'Home Decor', 'Office', 'Accessories', 'Toys'
+  price: 1299.00,                  // Price in INR
+  rating: 4.5,                     // Rating out of 5
+  description: 'Fast wireless charging pad with anti-slip surface. Compatible with all Qi-enabled devices.',
+  image: '/images/wireless-charger.png'  // Path to image (must start with /images/)
+}
+```
+
+3. Add a comma after the previous product object
+4. Save the file
+5. The server will automatically reload and show the new product
+
+### Example: Adding a Complete Product
+
+```javascript
+const products = [
+  // ... existing products ...
+  { 
+    id: 9, 
+    name: 'Wireless Charger', 
+    category: 'Accessories', 
+    price: 1299.00, 
+    rating: 4.5, 
+    description: 'Fast wireless charging pad with anti-slip surface. Compatible with all Qi-enabled devices.',
+    image: '/images/wireless-charger.png'
+  }
+];
+```
+
+## How to Update an Existing Product
+
+### Step 1: Locate the Product
+
+1. Open: `server/data/products.js`
+2. Find the product by its `id` or `name`
+
+### Step 2: Update Fields
+
+You can update any of these fields:
+- `name`: Change the display name
+- `category`: Change the category
+- `price`: Update the price
+- `rating`: Update the rating
+- `description`: Modify the description
+- `image`: Change the image path (make sure new image exists)
+
+### Example: Updating Price and Description
+
+Before:
+```javascript
+{
+  id: 1,
+  name: 'Geometric Planter',
+  category: 'Home Decor',
+  price: 899.00,
+  rating: 4.8,
+  description: 'A modern geometric planter.',
+  image: '/images/geometric-planter.png'
+}
+```
+
+After:
+```javascript
+{
+  id: 1,
+  name: 'Geometric Planter',
+  category: 'Home Decor',
+  price: 799.00,                    // Updated price
+  rating: 4.8,
+  description: 'A modern geometric planter perfect for succulents and small plants. Printed with high-quality PLA+.',  // Updated description
+  image: '/images/geometric-planter.png'
+}
+```
+
+## How to Remove a Product
+
+1. Open: `server/data/products.js`
+2. Find the product object you want to remove
+3. Delete the entire product object (including the curly braces)
+4. Remove the comma if it's the last product in the array
+5. Save the file
+
+## Categories Available
+
+The site currently supports these categories:
+- **Home Decor**: Decorative items for homes
+- **Office**: Desk and office accessories
+- **Accessories**: Tech and personal accessories
+- **Toys**: Articulated figures and fun items
+
+To add a new category:
+1. Update the `categories` array in: `client/src/pages/Shop.jsx`
+2. Add your new category to the list
+
+## Image Guidelines
+
+### Recommended Image Specifications
+- **Format**: PNG or JPG
+- **Size**: 800x800 pixels or larger (square aspect ratio works best)
+- **File Size**: Keep under 1MB for faster loading
+- **Background**: Clear or consistent background
+
+### Image Naming Convention
+- Use lowercase letters
+- Use hyphens to separate words
+- Be descriptive
+- Examples: `geometric-planter.png`, `laptop-stand.png`
+
+## Testing Your Changes
+
+After adding or updating products:
+
+1. **Check the server is running**: The terminal should show no errors
+2. **Visit the Shop page**: http://localhost:5173/shop
+3. **Verify**:
+   - Product appears in the grid
+   - Image loads correctly
+   - Price is formatted as ₹XXX.XX
+   - Category filter works
+4. **Click on the product** to check the details page
+
+## Troubleshooting
+
+### Product doesn't appear
+- Check that the server is running (`npm run dev` in server folder)
+- Verify the product object syntax is correct (commas, quotes)
+- Check browser console for errors (F12)
+
+### Image doesn't load
+- Verify the image file exists in `client/public/images/`
+- Check the image path starts with `/images/`
+- Ensure the filename matches exactly (case-sensitive)
+
+### Price shows incorrectly
+- Ensure price is a number, not a string
+- Use format: `899.00` not `"899"`
+
+## Quick Reference
+
+### Product Object Template
+```javascript
+{
+  id: [number],
+  name: '[string]',
+  category: '[Home Decor|Office|Accessories|Toys]',
+  price: [number],
+  rating: [number 1-5],
+  description: '[string]',
+  image: '/images/[filename]'
+}
+```
+
+### File Locations
+- **Product Data**: `server/data/products.js`
+- **Product Images**: `client/public/images/`
+- **Shop Page**: `client/src/pages/Shop.jsx`
+
+---
+
+For more help, check the project README or contact support.

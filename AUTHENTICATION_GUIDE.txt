@@ -1,0 +1,146 @@
+# Authentication Features - User Guide
+
+## ✅ What's Been Added
+
+### 1. Google Sign-In
+- Users can sign in with their Google account
+- Beautiful login modal with Google branding
+- Automatic profile creation in Firebase Firestore
+
+### 2. User Profile
+- Dedicated profile page at `/profile`
+- Users can save:
+  - Mobile number
+  - Delivery address
+- Data is stored in Firebase Firestore
+
+### 3. Enhanced Cart Experience
+- WhatsApp enquiries now include user details automatically
+- If user is logged in but hasn't completed profile, they'll see a reminder
+- Orders are automatically saved to Firebase when user enquires
+
+### 4. Order Tracking
+- All enquiries are saved to Firebase Firestore
+- Includes: user info, items, quantities, total, timestamp
+
+## 🎯 User Flow
+
+### For New Users:
+1. Click "Sign In" in navbar
+2. Click "Continue with Google"
+3. Authorize with Google
+4. Redirected back to site (now logged in)
+5. Go to Profile to add mobile & address
+6. Add items to cart
+7. Click "Enquire Now" - WhatsApp message includes all their details
+
+### For Returning Users:
+1. Automatically logged in (Firebase remembers)
+2. Profile data auto-fills in enquiries
+3. Can view/update profile anytime
+
+## 📊 Data Structure
+
+### Firestore Collections:
+
+**users/{userId}**
+```javascript
+{
+  mobile: "9876543210",
+  address: "123 Street, City",
+  createdAt: "2024-12-01T...",
+  updatedAt: "2024-12-01T..."
+}
+```
+
+**orders/{orderId}**
+```javascript
+{
+  userId: "abc123...",
+  userEmail: "user@example.com",
+  userName: "John Doe",
+  items: [
+    {
+      id: 1,
+      name: "Product Name",
+      quantity: 2,
+      price: 899
+    }
+  ],
+  total: 1798,
+  mobile: "9876543210",
+  address: "123 Street...",
+  createdAt: "2024-12-01T..."
+}
+```
+
+## 🔧 How to Enable Firestore
+
+You need to enable Firestore in your Firebase console:
+
+1. Go to Firebase Console: https://console.firebase.google.com/
+2. Select your project: `print3d-1e16c`
+3. Go to "Build" → "Firestore Database"
+4. Click "Create database"
+5. Choose "Start in production mode"
+6. Select location (closest to you - e.g., asia-south1 for India)
+7. Click "Enable"
+
+## 🎨 UI Features
+
+- **Navbar**: Shows user avatar when logged in, with dropdown menu
+- **Login Modal**: Clean, premium design with Google sign-in
+- **Profile Page**: Simple form to update contact info
+- **Cart Reminder**: Prompts users to complete profile if needed
+- **Mobile Responsive**: All auth UI works on mobile
+
+## 📱 WhatsApp Message Format
+
+When user clicks "Enquire Now", the WhatsApp message includes:
+
+```
+Hello! I would like to enquire about the following products:
+
+📋 CUSTOMER DETAILS:
+Name: John Doe
+Email: john@example.com
+Mobile: 9876543210
+Address: 123 Street, City, State
+
+🛒 ORDER DETAILS:
+
+1. Geometric Planter
+   Quantity: 2
+   Price: ₹899.00
+
+2. Voronoi Lamp
+   Quantity: 1
+   Price: ₹1499.00
+
+💰 Total: ₹3297.00
+```
+
+## 🚀 Testing the Features
+
+1. **Sign In**: Click "Sign In" button, use your Google account
+2. **Complete Profile**: Go to Profile page, add mobile & address
+3. **Add to Cart**: Add some products
+4. **Enquire**: Click "Enquire Now" - check WhatsApp message
+
+## ⚠️ Important Notes
+
+- Firebase package installed and configured
+- Firestore must be enabled (see above)
+- User data is only stored when they update their profile
+- Orders are saved every time user clicks "Enquire Now"
+- All data is secured via Firebase security rules (default production mode)
+
+## 🔒 Security
+
+- Only authenticated users can access their own data
+- Firebase handles all auth security
+- Consider adding Firestore security rules for production
+
+---
+
+Your authentication system is now live! 🎉

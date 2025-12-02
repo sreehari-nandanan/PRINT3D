@@ -1,0 +1,198 @@
+# How to View Orders in Firebase
+
+## Order Data Structure
+
+All orders are saved in Firestore under the `orders` collection with complete details:
+
+### Order Document Structure:
+```
+📁 orders/
+  └── ORD-1733076000000 (Order ID)
+      ├── customer
+      │   ├── name: "John Doe"
+      │   ├── email: "john@example.com"
+      │   ├── mobile: "9876543210"
+      │   ├── address: "123 Street, City"
+      │   └── userId: "abc123..."
+      │
+      ├── items: [
+      │   {
+      │     id: 1,
+      │     name: "Geometric Planter",
+      │     category: "Home Decor",
+      │     price: 899.00,
+      │     quantity: 2,
+      │     subtotal: 1798.00,
+      │     image: "/images/..."
+      │   },
+      │   ...
+      │ ]
+      │
+      ├── pricing
+      │   ├── subtotal: 3297.00
+      │   ├── discount: {
+      │   │   code: "SK10",
+      │   │   percentage: 10,
+      │   │   amount: 329.70
+      │   │ }
+      │   └── total: 2967.30
+      │
+      ├── status: "pending"
+      ├── createdAt: "2024-12-01T17:30:00.000Z"
+      └── orderNumber: "ORD-1733076000000"
+```
+
+## How to View Orders in Firebase Console
+
+### Step 1: Go to Firebase Console
+1. Visit: https://console.firebase.google.com/
+2. Select your project: `print3d-1e16c`
+
+### Step 2: Navigate to Firestore
+1. Click "Build" in left sidebar
+2. Click "Firestore Database"
+3. You'll see your database collections
+
+### Step 3: View Orders
+1. Click on "orders" collection
+2. You'll see all order documents listed
+3. Click on any order to see full details
+
+## Understanding Order Fields
+
+### Customer Details
+- **name**: Customer's full name (from Google)
+- **email**: Customer's email address
+- **mobile**: Customer's phone number
+- **address**: Delivery address
+- **userId**: Unique user identifier
+
+### Order Items
+Each item includes:
+- **name**: Product name
+- **category**: Product category
+- **price**: Unit price
+- **quantity**: Number of items
+- **subtotal**: price × quantity
+- **image**: Product image URL
+
+### Pricing
+- **subtotal**: Total before discount
+- **discount**: If coupon applied
+  - code: Coupon code used
+  - percentage: Discount %
+  - amount: Discount amount in ₹
+- **total**: Final amount to collect
+
+### Order Metadata
+- **orderNumber**: Unique order ID (ORD-timestamp)
+- **status**: Order status (default: "pending")
+- **createdAt**: Order timestamp (ISO format)
+
+## Filtering Orders
+
+### By Date
+1. In Firestore, click "Filter"
+2. Select field: `createdAt`
+3. Choose operator and date
+
+### By Status
+1. Click "Filter"
+2. Field: `status`
+3. Value: "pending" or other status
+
+### By Customer
+1. Click "Filter"
+2. Field: `customer.email`
+3. Enter customer email
+
+## Exporting Order Data
+
+### Method 1: Manual Copy
+1. Click on an order
+2. Copy the JSON data
+3. Paste into a text file
+
+### Method 2: Firebase Admin SDK (Advanced)
+- You can write a script to export all orders
+- Requires Firebase Admin SDK setup
+- Can export to CSV or Excel
+
+## Sample Order View
+
+When you click an order in Firebase, you'll see something like:
+
+```json
+{
+  "customer": {
+    "address": "123 Main St, Mumbai, Maharashtra, 400001",
+    "email": "customer@example.com",
+    "mobile": "9876543210",
+    "name": "Prabhjot Singh",
+    "userId": "abc123def456"
+  },
+  "items": [
+    {
+      "category": "Home Decor",
+      "id": 1,
+      "image": "/images/geometric-planter.png",
+      "name": "Geometric Planter",
+      "price": 899,
+      "quantity": 2,
+      "subtotal": 1798
+    },
+    {
+      "category": "Home Decor",
+      "id": 2,
+      "image": "/images/voronoi-lamp.png",
+      "name": "Voronoi Lamp",
+      "price": 1499,
+      "quantity": 1,
+      "subtotal": 1499
+    }
+  ],
+  "orderNumber": "ORD-1733076012345",
+  "pricing": {
+    "discount": {
+      "amount": 329.7,
+      "code": "SK10",
+      "percentage": 10
+    },
+    "subtotal": 3297,
+    "total": 2967.3
+  },
+  "status": "pending",
+  "createdAt": "2024-12-01T17:30:12.345Z"
+}
+```
+
+## Setting Up Email Notifications (Optional)
+
+You can set up Firebase Cloud Functions to:
+- Send you an email when new order arrives
+- Send confirmation email to customer
+- This requires Firebase Blaze plan (pay-as-you-go)
+
+## Order Fulfillment Workflow
+
+1. **Customer places order** → Saved to Firestore
+2. **You check Firebase Console** → See order details
+3. **Contact customer** → Using mobile/email from order
+4. **Update order status** → Change "pending" to "processing"
+5. **Ship product** → Update to "shipped"
+6. **Delivery confirmed** → Update to "completed"
+
+## Quick Reference
+
+- **Firebase Console**: https://console.firebase.google.com/
+- **Your Project**: print3d-1e16c
+- **Orders Location**: Firestore Database → orders collection
+- **Order ID Format**: ORD-[timestamp]
+- **Default Status**: pending
+
+---
+
+**Pro Tip**: Bookmark your Firebase console orders page:
+`https://console.firebase.google.com/project/print3d-1e16c/firestore/data/~2Forders`
+
+All your orders are now being saved to Firebase with complete details! 🎉

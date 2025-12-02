@@ -1,0 +1,185 @@
+# Discount Coupons Management Guide
+
+This guide explains how to add, update, and remove discount coupons for your store.
+
+## Coupon File Location
+
+All coupons are stored in: `server/data/coupons.js`
+
+## How to Add a New Coupon
+
+1. Open: `server/data/coupons.js`
+2. Add a new coupon object to the array:
+
+```javascript
+{
+  code: 'YOUR_CODE',        // Coupon code (all caps recommended)
+  discount: 10,             // Discount percentage (10 = 10%)
+  description: 'Your description'
+}
+```
+
+### Example: Adding a 25% Off Coupon
+
+```javascript
+const coupons = [
+  // ... existing coupons ...
+  {
+    code: 'MEGA25',
+    discount: 25,
+    description: '25% off on all products'
+  }
+];
+```
+
+## How to Update an Existing Coupon
+
+1. Find the coupon in `server/data/coupons.js`
+2. Update the discount percentage or description
+
+### Example: Changing SK10 to 15%
+
+Before:
+```javascript
+{
+  code: 'SK10',
+  discount: 10,
+  description: '10% off on all products'
+}
+```
+
+After:
+```javascript
+{
+  code: 'SK10',
+  discount: 15,  // Changed from 10 to 15
+  description: '15% off on all products'  // Updated description
+}
+```
+
+## How to Remove a Coupon
+
+1. Open: `server/data/coupons.js`
+2. Delete the entire coupon object (including curly braces)
+3. Remove the comma if it's the last item
+
+## Currently Active Coupons
+
+Default coupons in your store:
+
+1. **SK10** - 10% off on all products
+2. **WELCOME20** - 20% off for new customers
+3. **SAVE15** - 15% off sitewide
+
+## How Customers Use Coupons
+
+1. Add products to cart
+2. Click on cart icon
+3. Enter coupon code in "Have a coupon?" field
+4. Click "Apply"
+5. Discount is applied to total
+6. Coupon details included in WhatsApp enquiry
+
+## Coupon Display in Cart
+
+When a valid coupon is applied:
+- Shows: `SK10 - 10% OFF`
+- Displays discount amount: `-₹XXX.XX`
+- Updates final total automatically
+- Can be removed by clicking X button
+
+## WhatsApp Message Format (With Coupon)
+
+```
+🛒 ORDER DETAILS:
+
+1. Product Name
+   Quantity: 2
+   Price: ₹899.00
+
+Subtotal: ₹1798.00
+
+🎟️ DISCOUNT APPLIED:
+Coupon Code: SK10
+Discount: 10% (₹179.80)
+
+💰 Final Total: ₹1618.20
+```
+
+## Tips for Creating Effective Coupons
+
+### Discount Percentages
+- **5-10%**: Small discount, good for frequent promotions
+- **15-20%**: Medium discount, attractive for new customers
+- **25-30%**: Large discount, special occasions only
+- **40%+**: Major sales events
+
+### Coupon Code Best Practices
+- **Keep it short**: 4-8 characters (e.g., SAVE20, NEW15)
+- **Make it memorable**: Use words that relate to offer (WELCOME, MEGA, FIRST)
+- **All caps**: Easier to read and type
+- **No special characters**: Letters and numbers only
+
+### Example Coupon Ideas
+
+**Seasonal:**
+```javascript
+{ code: 'SUMMER20', discount: 20, description: 'Summer sale - 20% off' }
+{ code: 'WINTER15', discount: 15, description: 'Winter special - 15% off' }
+```
+
+**Customer Type:**
+```javascript
+{ code: 'FIRST25', discount: 25, description: '25% off first order' }
+{ code: 'VIP30', discount: 30, description: 'VIP customer - 30% off' }
+```
+
+**Time-Limited:**
+```javascript
+{ code: 'FLASH40', discount: 40, description: 'Flash sale - 40% off' }
+{ code: 'WEEKEND10', discount: 10, description: 'Weekend special - 10% off' }
+```
+
+## Testing Coupons
+
+After adding/updating coupons:
+
+1. Save the `coupons.js` file
+2. Server will auto-reload (if running)
+3. Go to your website
+4. Add items to cart
+5. Try entering the coupon code
+6. Verify discount is applied correctly
+
+## Troubleshooting
+
+### Coupon not working?
+- Check spelling in `coupons.js`
+- Ensure server is running
+- Refresh the page
+- Try with all caps
+
+### Wrong discount amount?
+- Check the `discount` value (should be a number, not percentage)
+- Example: For 10% off, use `discount: 10` not `discount: 0.1`
+
+### Changes not reflecting?
+- Save the file
+- Check server terminal for errors
+- Restart server if needed: Stop and run `npm run dev` again
+
+---
+
+**Quick Reference:**
+
+Location: `server/data/coupons.js`
+Format:
+```javascript
+{
+  code: 'CODE',
+  discount: number,
+  description: 'text'
+}
+```
+
+Your customers can now enjoy discounts with these coupons! 🎉

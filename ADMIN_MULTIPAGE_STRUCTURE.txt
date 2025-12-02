@@ -1,0 +1,112 @@
+# Admin Dashboard - Multi-Page Structure
+
+## Overview
+The admin dashboard now consists of separate pages with navigation:
+
+1. **Dashboard** (`/admin`) - Overview with stats and charts
+2. **New Orders** (`/admin/new-orders`) - Pending, Processing, Shipped orders
+3. **Completed Orders** (`/admin/completed`) - Completed orders only  
+4. **All Orders** (`/admin/all-orders`) - Complete order history
+
+## Profit Calculation Logic
+
+### Product Profit Field
+Each product has a `profit` field representing the profit margin per unit:
+- Example: Geometric Planter
+  - Price: ₹899
+  - Profit: ₹549 (per unit sold)
+
+### Order Profit Calculation
+
+**Base Profit (Before Discount):**
+```
+Item Profit = profit_per_unit × quantity
+Order Base Profit = Sum of all item profits
+```
+
+**Discount Impact on Profit:**
+When a discount is applied, it reduces the profit:
+```
+Discount Amount = (subtotal × discount_percentage) / 100
+Final Profit = Base Profit - Discount Amount
+```
+
+**Example:**
+```
+Order with:
+- 2× Geometric Planter (profit ₹549 each)
+- 1× Phone Dock (profit ₹419 each)
+
+Base Profit = (549 × 2) + (419 × 1) = ₹1,517
+
+If 10% discount applied on ₹2,497 subtotal:
+- Discount Amount = ₹249.70
+- Final Profit = ₹1,517 - ₹249.70 = ₹1,267.30
+```
+
+## Navigation Structure
+
+### Admin Navbar
+- Dashboard
+- New Orders (with count badge)
+- Completed Orders (with count badge)
+- All Orders (with count badge)
+- Logout
+
+### Features Per Page
+
+**Dashboard:**
+- Stats cards (Total Orders, Revenue, Profit, Pending Revenue)
+- Revenue & Profit trend chart
+- Order status distribution chart
+
+**New Orders:**
+- Search by order #, customer name, email
+- Sort by date/amount
+- Filter by status (Pending/Processing/Shipped)
+- Quick status update
+- View details, Edit, Delete actions
+
+**Completed Orders:**
+- Search functionality
+- Sort by date/amount
+- View completed order details
+- Delete option
+
+**All Orders:**
+- Complete order history
+- Search functionality
+- Sort by date/amount
+- Filter by all statuses
+- Full CRUD operations
+
+## File Structure
+```
+client/src/pages/
+├── Admin.jsx (Dashboard - main page)
+├── AdminNewOrders.jsx (New orders management)
+├── AdminCompleted.jsx (Completed orders)
+├── AdminAllOrders.jsx (All orders history)
+└── Admin.css (Shared styles)
+
+client/src/components/
+└── AdminNavbar.jsx (Navigation for admin pages)
+```
+
+## Routes
+```
+/admin → Dashboard
+/admin/new-orders → New Orders Management
+/admin/completed → Completed Orders
+/admin/all-orders → All Orders History
+```
+
+## Key Differences from Previous Implementation
+
+1. **Separate Pages** - Each section is now its own page with dedicated route
+2. **Navigation Bar** - Persistent navbar across all admin pages
+3. **Profit Field** - Uses `profit` instead of `cost` in products
+4. **Discount Handling** - Discounts reduce profit, not just revenue
+5. **Better Organization** - Cleaner separation of concerns
+
+This structure provides better scalability and user experience!

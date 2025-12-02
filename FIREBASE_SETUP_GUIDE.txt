@@ -1,0 +1,91 @@
+# Firebase Setup Guide
+
+Follow these steps to setup Firebase for Google Authentication:
+
+## Step 1: Create Firebase Project
+
+1. **Go to Firebase Console**
+   - Visit: https://console.firebase.google.com/
+   - Click "Add project" or "Create a project"
+
+2. **Project Details**
+   - Project name: `print3d-shop` (or any name you prefer)
+   - Click "Continue"
+   
+3. **Google Analytics** (Optional)
+   - You can disable this for now by toggling it OFF
+   - Click "Create project"
+   - Wait for project creation (takes ~30 seconds)
+   - Click "Continue"
+
+## Step 2: Add Web App to Firebase
+
+1. **In your Firebase project dashboard**
+   - Click the "</>" icon (Web platform) to add a web app
+   
+2. **Register App**
+   - App nickname: `Print3D Web App`
+   - Check "Also set up Firebase Hosting" - NO (leave unchecked)
+   - Click "Register app"
+
+3. **Firebase SDK Configuration**
+   - You'll see a code snippet with your Firebase configuration
+   - It looks like this:
+
+   ```javascript
+   const firebaseConfig = {
+     apiKey: "AIza...",
+     authDomain: "your-project.firebaseapp.com",
+     projectId: "your-project-id",
+     storageBucket: "your-project.appspot.com",
+     messagingSenderId: "123456789",
+     appId: "1:123456789:web:abcdef"
+   };
+   ```
+
+   - **IMPORTANT**: Copy this entire configuration object
+   - Keep this page open or save it somewhere
+   - Click "Continue to console"
+
+## Step 3: Enable Google Authentication
+
+1. **In Firebase Console, go to "Build" → "Authentication"**
+   - Click "Get started"
+   
+2. **Enable Google Sign-In**
+   - Click on "Sign-in method" tab
+   - Click "Google" from the list of providers
+   - Toggle "Enable" to ON
+   - Project support email: (select your email from dropdown)
+   - Click "Save"
+
+## Step 4: Get Your Configuration
+
+You should now have your Firebase configuration ready. It looks like:
+
+```javascript
+{
+  apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  authDomain: "your-project-12345.firebaseapp.com",
+  projectId: "your-project-12345",
+  storageBucket: "your-project-12345.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:abcdef123456"
+}
+```
+
+## What to Do Next
+
+Once you have your Firebase configuration:
+
+1. **Copy your configuration values**
+2. **Tell me when ready** - I'll create a file for you to paste them in
+3. I'll then implement all the authentication code
+
+---
+
+**Ready?** After completing these steps, reply with:
+- "Firebase setup done" 
+- Or paste your Firebase config here (I'll help you integrate it)
+
+**Need help?** If you get stuck at any step, let me know which step and I'll guide you!
