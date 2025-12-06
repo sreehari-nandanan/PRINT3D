@@ -1,0 +1,153 @@
+.products-admin-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: white;
+}
+
+.products-admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.product-form-card {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border: 1px solid #333;
+}
+
+.product-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    padding: 0.8rem;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #00f2ff;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.products-table-container {
+    background: #1a1a1a;
+    border-radius: 12px;
+    border: 1px solid #333;
+    overflow-x: auto;
+}
+
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.products-table th {
+    background: #252525;
+    color: #888;
+    font-weight: 500;
+}
+
+.products-table tr:hover {
+    background: #252525;
+}
+
+.product-image-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.action-btn {
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: all 0.2s;
+}
+
+.edit-btn {
+    background: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
+}
+
+.edit-btn:hover {
+    background: rgba(33, 150, 243, 0.2);
+}
+
+.delete-btn {
+    background: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+}
+
+.delete-btn:hover {
+    background: rgba(244, 67, 54, 0.2);
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #00f2ff;
+    color: black;
+}
+
+.btn-primary:hover {
+    background: #00dce8;
+}
+
+.btn-secondary {
+    background: #444;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #555;
+}

@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const products = require('./data/products');
+const fs = require('fs');
+const path = require('path');
 const coupons = require('./data/coupons');
 
 dotenv.config();
@@ -12,12 +13,33 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+const productsFilePath = path.join(__dirname, 'data', 'products.json');
+
+const readProducts = () => {
+  try {
+    const data = fs.readFileSync(productsFilePath, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading products file:', error);
+    return [];
+  }
+};
+
+const writeProducts = (products) => {
+  try {
+    fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 4));
+  } catch (error) {
+    console.error('Error writing products file:', error);
+  }
+};
+
 app.get('/', (req, res) => {
   res.send('Print3D API Running');
 });
 
 // Get all products
 app.get('/api/products', (req, res) => {
+  const products = readProducts();
   const category = req.query.category;
   if (category && category !== 'All') {
     const filtered = products.filter(p => p.category === category);
@@ -28,9 +50,54 @@ app.get('/api/products', (req, res) => {
 
 // Get single product
 app.get('/api/products/:id', (req, res) => {
+  const products = readProducts();
   const product = products.find(p => p.id === parseInt(req.params.id));
   if (product) {
     res.json(product);
+  } else {
+    res.status(404).json({ message: 'Product not found' });
+  }
+});
+
+// Add new product
+app.post('/api/products', (req, res) => {
+  const products = readProducts();
+  const newProduct = req.body;
+
+  // Auto-generate ID
+  const maxId = products.reduce((max, p) => (p.id > max ? p.id : max), 0);
+  newProduct.id = maxId + 1;
+
+  products.push(newProduct);
+  writeProducts(products);
+
+  res.status(201).json(newProduct);
+});
+
+// Update product
+app.put('/api/products/:id', (req, res) => {
+  const products = readProducts();
+  const id = parseInt(req.params.id);
+  const index = products.findIndex(p => p.id === id);
+
+  if (index !== -1) {
+    products[index] = { ...products[index], ...req.body, id }; // Ensure ID doesn't change
+    writeProducts(products);
+    res.json(products[index]);
+  } else {
+    res.status(404).json({ message: 'Product not found' });
+  }
+});
+
+// Delete product
+app.delete('/api/products/:id', (req, res) => {
+  const products = readProducts();
+  const id = parseInt(req.params.id);
+  const newProducts = products.filter(p => p.id !== id);
+
+  if (products.length !== newProducts.length) {
+    writeProducts(newProducts);
+    res.json({ message: 'Product deleted' });
   } else {
     res.status(404).json({ message: 'Product not found' });
   }

@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "name": "Geometric Planter",
+        "category": "Home Decor",
+        "price": 899,
+        "profit": 549,
+        "rating": 4.8,
+        "description": "A modern geometric planter perfect for succulents and small plants. Printed with high-quality PLA+.",
+        "image": "/images/geometric-planter.png"
+    },
+    {
+        "id": 2,
+        "name": "Voronoi Lamp",
+        "category": "Home Decor",
+        "price": 1499,
+        "profit": 899,
+        "rating": 4.9,
+        "description": "Intricate Voronoi pattern lamp shade that casts beautiful shadows. Comes with LED bulb.",
+        "image": "/images/voronoi-lamp.png"
+    },
+    {
+        "id": 3,
+        "name": "Headphone Stand",
+        "category": "Accessories",
+        "price": 999,
+        "profit": 599,
+        "rating": 4.7,
+        "description": "Sleek headphone stand to keep your desk organized. sturdy and stylish.",
+        "image": "/images/headphone-stand.png"
+    },
+    {
+        "id": 5,
+        "name": "Minimalist Clock",
+        "category": "Home Decor",
+        "price": 1150,
+        "profit": 700,
+        "rating": 4.6,
+        "description": "Minimalist wall clock design. Silent movement mechanism included.",
+        "image": "/images/minimalist-clock.png"
+    },
+    {
+        "id": 6,
+        "name": "Cable Organizer",
+        "category": "Office",
+        "price": 499,
+        "profit": 299,
+        "rating": 4.5,
+        "description": "Keep your cables tidy with this modular organizer system.",
+        "image": "/images/cable-organizer.png"
+    },
+    {
+        "id": 7,
+        "name": "Laptop Stand",
+        "category": "Office",
+        "price": 1599,
+        "profit": 949,
+        "rating": 4.8,
+        "description": "Ergonomic laptop stand for better airflow and viewing angle.",
+        "image": "/images/laptop-stand.png"
+    },
+    {
+        "id": 8,
+        "name": "Phone Dock",
+        "category": "Accessories",
+        "price": 699,
+        "profit": 419,
+        "rating": 4.7,
+        "description": "Universal phone dock with cable management channel.",
+        "image": "/images/phone-dock.png"
+    },
+    {
+        "id": 9,
+        "name": "Skull keychain",
+        "category": "keychains",
+        "price": 699,
+        "profit": 419,
+        "rating": 4.7,
+        "description": "A small keycharm for your keychain.Hope these buddy`s will find a fitting home…",
+        "image": "/images/skull.png"
+    },
+    {
+        "id": 10,
+        "name": "Hexagon keychain",
+        "category": "keychains",
+        "price": 699,
+        "profit": 419,
+        "rating": 4.7,
+        "description": "A small keycharm for your keychain.Hope these buddy`s will find a fitting home…",
+        "image": "/images/hexagon.png"
+    },
+    {
+        "id": 11,
+        "name": "Kitty Paw keychain",
+        "category": "keychains",
+        "price": 699,
+        "profit": 419,
+        "rating": 4.7,
+        "description": "A small keycharm for your keychain.Hope these buddy`s will find a fitting home…",
+        "image": "/images/kitty.png"
+    },
+    {
+        "id": 110,
+        "name": "Custom 3D Print",
+        "category": "custom",
+        "price": 999,
+        "profit": 599,
+        "rating": 4.9,
+        "description": "Bring your ideas to life! Custom 3D printing service for your unique designs. Upload your STL file or work with us to create something special.",
+        "image": "/images/custom-print.png"
+    }
+]

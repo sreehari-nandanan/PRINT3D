@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Clock, CheckCircle, Package, LogOut } from 'lucide-react';
+import { LayoutDashboard, Clock, CheckCircle, Package, LogOut, ShoppingBag } from 'lucide-react';
 import './AdminNavbar.css';
 
 const AdminNavbar = () => {
@@ -27,9 +27,14 @@ const AdminNavbar = () => {
                         <span>Dashboard</span>
                     </Link>
 
+                    <Link to="/products-admin" className={`admin-nav-item ${isActive('/products-admin') ? 'active' : ''}`}>
+                        <ShoppingBag size={20} />
+                        <span>Products</span>
+                    </Link>
+
                     <Link to="/admin/new-orders" className={`admin-nav-item ${isActive('/admin/new-orders') ? 'active' : ''}`}>
                         <Clock size={20} />
-                        <span>New Orders</span>
+                        <span>New</span>
                     </Link>
 
                     <Link to="/admin/incomplete-orders" className={`admin-nav-item ${isActive('/admin/incomplete-orders') ? 'active' : ''}`}>
@@ -49,7 +54,7 @@ const AdminNavbar = () => {
 
                     <Link to="/admin/all-orders" className={`admin-nav-item ${isActive('/admin/all-orders') ? 'active' : ''}`}>
                         <Package size={20} />
-                        <span>All Orders</span>
+                        <span>All</span>
                     </Link>
                 </div>
 

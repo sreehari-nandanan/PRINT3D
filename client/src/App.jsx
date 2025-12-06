@@ -16,10 +16,11 @@ import AdminCompleted from './pages/AdminCompleted';
 import AdminAllOrders from './pages/AdminAllOrders';
 import AdminIncompleteOrders from './pages/AdminIncompleteOrders';
 import AdminCancelledOrders from './pages/AdminCancelledOrders';
+import ProductsAdmin from './pages/ProductsAdmin';
 
 function AppContent() {
   const location = useLocation();
-  const isAdminPage = location.pathname.startsWith('/admin');
+  const isAdminPage = location.pathname.startsWith('/admin') || location.pathname.startsWith('/products-admin');
 
   return (
     <div className="app-layout">
@@ -38,6 +39,7 @@ function AppContent() {
           <Route path="/admin/completed" element={<AdminCompleted />} />
           <Route path="/admin/cancelled-orders" element={<AdminCancelledOrders />} />
           <Route path="/admin/all-orders" element={<AdminAllOrders />} />
+          <Route path="/products-admin" element={<ProductsAdmin />} />
           <Route path="/my-orders" element={<MyOrders />} />
         </Routes>
       </main>

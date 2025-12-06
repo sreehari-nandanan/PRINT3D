@@ -79,6 +79,46 @@ const products = [
         description: 'Universal phone dock with cable management channel.',
         image: '/images/phone-dock.png'
     },
+    {
+        id: 9,
+        name: 'Skull keychain',
+        category: 'keychains',
+        price: 699.00,
+        profit: 419.00,
+        rating: 4.7,
+        description: 'A small keycharm for your keychain.Hope these buddy`s will find a fitting home…',
+        image: '/images/skull.png'
+    },
+    {
+        id: 10,
+        name: 'Hexagon keychain',
+        category: 'keychains',
+        price: 699.00,
+        profit: 419.00,
+        rating: 4.7,
+        description: 'A small keycharm for your keychain.Hope these buddy`s will find a fitting home…',
+        image: '/images/hexagon.png'
+    },
+    {
+        id: 11,
+        name: 'Kitty Paw keychain',
+        category: 'keychains',
+        price: 699.00,
+        profit: 419.00,
+        rating: 4.7,
+        description: 'A small keycharm for your keychain.Hope these buddy`s will find a fitting home…',
+        image: '/images/kitty.png'
+    },
+    {
+        id: 110,
+        name: 'Custom 3D Print',
+        category: 'custom',
+        price: 999.00,
+        profit: 599.00,
+        rating: 4.9,
+        description: 'Bring your ideas to life! Custom 3D printing service for your unique designs. Upload your STL file or work with us to create something special.',
+        image: '/images/custom-print.png'
+    }
 ];
 
 module.exports = products;

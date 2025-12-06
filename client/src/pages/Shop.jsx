@@ -8,7 +8,7 @@ const Shop = () => {
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('All');
 
-    const categories = ['All', 'Home Decor', 'Office', 'Accessories', 'Toys'];
+    const categories = ['All', 'Home Decor', 'Office', 'Accessories', 'Toys', 'keychains', 'custom'];
 
     useEffect(() => {
         const fetchProducts = async () => {
