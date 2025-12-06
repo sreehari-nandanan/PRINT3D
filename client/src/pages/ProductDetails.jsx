@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Star, ShoppingBag, Truck, ShieldCheck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import API_URL from '../config/api';
+import { getProductById } from '../services/productService';
 import './ProductDetails.css';
 
 const ProductDetails = () => {
@@ -15,9 +15,8 @@ const ProductDetails = () => {
         const fetchProduct = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`${API_URL}/api/products/${id}`);
-                if (response.ok) {
-                    const data = await response.json();
+                const data = await getProductById(id);
+                if (data) {
                     setProduct(data);
                 }
             } catch (error) {

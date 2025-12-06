@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
-import API_URL from '../config/api';
+import { getAllProducts } from '../services/productService';
 import './Shop.css';
 
 const Shop = () => {
@@ -14,8 +14,7 @@ const Shop = () => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`${API_URL}/api/products`);
-                const data = await response.json();
+                const data = await getAllProducts();
                 setProducts(data);
             } catch (error) {
                 console.error('Error fetching products:', error);

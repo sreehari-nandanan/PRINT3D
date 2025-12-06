@@ -1,7 +1,7 @@
 import Hero from '../components/Hero';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import API_URL from '../config/api';
+import { getAllProducts } from '../services/productService';
 import './Home.css';
 
 const Home = () => {
@@ -11,8 +11,7 @@ const Home = () => {
         // Fetch products to display in the featured section
         const fetchProducts = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/products`);
-                const data = await response.json();
+                const data = await getAllProducts();
                 // Just take the first 6 for the featured scroll
                 setFeaturedProducts(data.slice(0, 6));
             } catch (error) {

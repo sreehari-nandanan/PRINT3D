@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import AdminNavbar from '../components/AdminNavbar';
-import { Package, Edit, Trash2, Plus, X, Upload } from 'lucide-react';
+import { Package, Edit, Trash2, Plus, X, Upload, Database } from 'lucide-react';
 import API_URL from '../config/api';
+import { getAllProducts, addProduct, updateProduct, deleteProduct, migrateProductsToFirebase } from '../services/productService';
 import './ProductsAdmin.css';
 
 const ProductsAdmin = () => {
@@ -25,12 +26,37 @@ const ProductsAdmin = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/products`);
-            const data = await response.json();
+            // Fetch from Firebase
+            const data = await getAllProducts();
+            // Sort by ID (descending) to show newest first if they have IDs
+            data.sort((a, b) => (b.id || 0) - (a.id || 0));
             setProducts(data);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching products:', error);
+            setLoading(false);
+        }
+    };
+
+    const handleMigrate = async () => {
+        if (!window.confirm('This will fetch products from the old API and upload them to Firebase. Continue?')) return;
+
+        try {
+            setLoading(true);
+            // Fetch from old API
+            const response = await fetch(`${API_URL}/api/products`);
+            const oldProducts = await response.json();
+
+            // Upload to Firebase
+            const results = await migrateProductsToFirebase(oldProducts);
+            console.log('Migration results:', results);
+            alert(`Migration complete! Processed ${results.length} products.`);
+
+            // Refresh list
+            fetchProducts();
+        } catch (error) {
+            console.error('Migration failed:', error);
+            alert('Migration failed. Check console for details.');
             setLoading(false);
         }
     };
@@ -51,37 +77,31 @@ const ProductsAdmin = () => {
             ...formData,
             price: parseFloat(formData.price),
             profit: parseFloat(formData.profit),
-            rating: parseFloat(formData.rating)
+            rating: parseFloat(formData.rating),
+            // Ensure ID is handled if needed, or let Firebase handle it
+            // For new products, we might want to generate a numeric ID if the app relies on it
+            // But ideally we switch to string IDs.
+            // If we are editing, we keep the existing ID.
         };
 
         try {
             if (isEditing) {
-                const response = await fetch(`${API_URL}/api/products/${editId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productData)
-                });
-                if (response.ok) {
-                    fetchProducts();
-                    resetForm();
-                }
+                await updateProduct(editId, productData);
+                fetchProducts();
+                resetForm();
             } else {
-                const response = await fetch(`${API_URL}/api/products`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productData)
-                });
-                if (response.ok) {
-                    fetchProducts();
-                    resetForm();
-                }
+                // For new products, if we want to maintain numeric IDs for compatibility:
+                // Find max ID
+                const maxId = products.reduce((max, p) => (typeof p.id === 'number' && p.id > max ? p.id : max), 0);
+                productData.id = maxId + 1;
+
+                await addProduct(productData);
+                fetchProducts();
+                resetForm();
             }
         } catch (error) {
             console.error('Error saving product:', error);
+            alert('Failed to save product');
         }
     };
 
@@ -103,14 +123,11 @@ const ProductsAdmin = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
             try {
-                const response = await fetch(`${API_URL}/api/products/${id}`, {
-                    method: 'DELETE'
-                });
-                if (response.ok) {
-                    fetchProducts();
-                }
+                await deleteProduct(id);
+                fetchProducts();
             } catch (error) {
                 console.error('Error deleting product:', error);
+                alert('Failed to delete product');
             }
         }
     };
@@ -184,6 +201,10 @@ const ProductsAdmin = () => {
                         <h1 className="page-title">Product Management</h1>
                         <p className="page-subtitle">Add, edit, and remove products</p>
                     </div>
+                    <button onClick={handleMigrate} className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Database size={18} />
+                        Migrate to Firebase
+                    </button>
                 </div>
 
                 <div className="product-form-card">
