@@ -151,3 +151,51 @@
 .btn-secondary:hover {
     background: #555;
 }
+
+/* Image Upload Styles */
+.image-upload-container {
+    position: relative;
+    border: 2px dashed #444;
+    border-radius: 6px;
+    padding: 0.5rem;
+    transition: border-color 0.2s;
+}
+
+.image-upload-container:hover {
+    border-color: #00f2ff;
+}
+
+.image-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.image-input-wrapper input {
+    width: 100%;
+    padding-right: 2.5rem;
+    /* Space for the icon */
+    border: none;
+    /* Remove border from input since container has it */
+    background: transparent;
+}
+
+.image-input-wrapper input:focus {
+    box-shadow: none;
+}
+
+.upload-icon-wrapper {
+    position: absolute;
+    right: 0.8rem;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.help-text {
+    display: block;
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.8rem;
+    text-align: center;
+}

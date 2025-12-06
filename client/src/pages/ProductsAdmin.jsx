@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AdminNavbar from '../components/AdminNavbar';
-import { Package, Edit, Trash2, Plus, X } from 'lucide-react';
+import { Package, Edit, Trash2, Plus, X, Upload } from 'lucide-react';
 import API_URL from '../config/api';
 import './ProductsAdmin.css';
 
@@ -129,6 +129,52 @@ const ProductsAdmin = () => {
         setEditId(null);
     };
 
+    const handleImageUpload = async (file) => {
+        const uploadData = new FormData();
+        uploadData.append('image', file);
+
+        try {
+            const response = await fetch(`${API_URL}/api/upload`, {
+                method: 'POST',
+                body: uploadData
+            });
+            const data = await response.json();
+            if (data.imagePath) {
+                setFormData(prev => ({
+                    ...prev,
+                    image: data.imagePath
+                }));
+            }
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            handleImageUpload(file);
+        }
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handlePaste = (e) => {
+        const items = e.clipboardData.items;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                const file = items[i].getAsFile();
+                handleImageUpload(file);
+                break;
+            }
+        }
+    };
+
     return (
         <div className="admin-page">
             <AdminNavbar />
@@ -204,15 +250,30 @@ const ProductsAdmin = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Image URL</label>
-                                <input
-                                    type="text"
-                                    name="image"
-                                    value={formData.image}
-                                    onChange={handleInputChange}
-                                    placeholder="/images/..."
-                                    required
-                                />
+                                <label>Image</label>
+                                <div
+                                    className="image-upload-container"
+                                    onDrop={handleDrop}
+                                    onDragOver={handleDragOver}
+                                    onPaste={handlePaste}
+                                >
+                                    <div className="image-input-wrapper">
+                                        <input
+                                            type="text"
+                                            name="image"
+                                            value={formData.image}
+                                            onChange={handleInputChange}
+                                            placeholder="/images/..."
+                                            required
+                                        />
+                                        <div className="upload-icon-wrapper">
+                                            <Upload size={20} className="text-gray-400" />
+                                        </div>
+                                    </div>
+                                    <small className="help-text">
+                                        Drag & drop an image here, or paste (Ctrl+V)
+                                    </small>
+                                </div>
                             </div>
                         </div>
                         <div className="form-group" style={{ marginBottom: '1.5rem' }}>

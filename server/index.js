@@ -14,6 +14,37 @@ app.use(cors());
 app.use(express.json());
 
 const productsFilePath = path.join(__dirname, 'data', 'products.json');
+const multer = require('multer');
+
+// Configure multer for image uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Save to client/public/images so React can serve them
+    const uploadPath = path.join(__dirname, '../client/public/images');
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
+  },
+  filename: function (req, file, cb) {
+    // Keep original extension
+    const ext = path.extname(file.originalname);
+    const name = path.basename(file.originalname, ext).toLowerCase().replace(/[^a-z0-9]/g, '-');
+    cb(null, `${name}-${Date.now()}${ext}`);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+// Upload endpoint
+app.post('/api/upload', upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
+  }
+  // Return the path relative to public folder
+  const imagePath = `/images/${req.file.filename}`;
+  res.json({ imagePath });
+});
 
 const readProducts = () => {
   try {
