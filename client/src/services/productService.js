@@ -23,10 +23,14 @@ export const getAllProducts = async (category = null) => {
         }
 
         const querySnapshot = await getDocs(q);
-        return querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
+        return querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+                ...data,
+                id: data.id || doc.id, // Use numeric ID if present (legacy), else Firestore ID
+                firebaseId: doc.id // Always expose Firestore ID for admin operations
+            };
+        });
     } catch (error) {
         console.error("Error getting products: ", error);
         throw error;

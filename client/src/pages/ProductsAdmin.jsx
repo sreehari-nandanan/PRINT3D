@@ -115,7 +115,7 @@ const ProductsAdmin = () => {
             description: product.description,
             image: product.image
         });
-        setEditId(product.id);
+        setEditId(product.firebaseId || product.id);
         setIsEditing(true);
         window.scrollTo(0, 0);
     };
@@ -348,7 +348,7 @@ const ProductsAdmin = () => {
                                         <button className="action-btn edit-btn" onClick={() => handleEdit(product)}>
                                             <Edit size={18} />
                                         </button>
-                                        <button className="action-btn delete-btn" onClick={() => handleDelete(product.id)}>
+                                        <button className="action-btn delete-btn" onClick={() => handleDelete(product.firebaseId || product.id)}>
                                             <Trash2 size={18} />
                                         </button>
                                     </td>
