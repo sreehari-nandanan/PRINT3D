@@ -284,7 +284,7 @@ const ProductsAdmin = () => {
                                             name="image"
                                             value={formData.image}
                                             onChange={handleInputChange}
-                                            placeholder="/images/..."
+                                            placeholder="Paste image URL or drag & drop file..."
                                             required
                                         />
                                         <div className="upload-icon-wrapper">
